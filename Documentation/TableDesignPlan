@@ -1,0 +1,43 @@
+--MasterExpIncCodes
+code
+description
+Type {exp, inc}
+parentcode
+TotalValue
+Period
+--------------
+
+--PeriodMaster (cycle)
+  Code
+  Description
+  PeriodName
+  PeriodStartFrom
+  PeriodEndFrom
+
+--------------------------
+--ExpMaster
+code
+Description
+ExpIncCode
+DateOfEntry
+DateOfExp
+PeriodCode
+--------------------------
+--Workers Expense
+code
+Description
+ExpMasterCode
+NumberOfEmp
+EmpType
+-----------------------------
+
+
+
+---------------------------
+--Product Expense
+code
+Description
+Qty
+Price
+Tax
+Total
