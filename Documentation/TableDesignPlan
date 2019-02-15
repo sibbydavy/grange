@@ -1,52 +1,57 @@
---FarmMaster
- farmCode,
- farmName
-------------------
---CropMaster
+FarmMaster
+  farmCode,
+  farmName,
+  cropMaster[]     : CropMaster //Hold the list of crops related to this farm
+  workersExpense[] : WorkersExpense //Hold the list of worker's expense related to this farm
+  productExpense[] : ProductExpense  //Hold the list of expenses to buy product related to this farm
+  
+---------------------------------------------------------------------
+CropMaster
   cropCode
   cropName
----------------
-
---MasterExpIncCodes
-code
-description
-Type {exp, inc}
-parentcode
-TotalValue
-Period
---------------
-
---PeriodMaster (cycle)
+  yieldPeriodMaster[] : YieldPeriodMaster //list of cycle from start to end yielding.
+----------------------------------------------------------------------
+MasterExpIncCodes
+ code
+ description
+ Type {exp, inc}
+ parentcode
+ TotalValue
+ Period
+-----------------------------------------------------------------------------
+YieldPeriodMaster (cycle)
   Code
   Description
   PeriodName
   PeriodStartFrom
   PeriodEndFrom
+  isCurrent
+  expMaster[] : ExpMaster // expense related to this yield period
 
---------------------------
---ExpMaster
-code
-Description
-ExpIncCode
-DateOfEntry
-DateOfExp
-PeriodCode
---------------------------
---Workers Expense
-code
-Description
-ExpMasterCode
-NumberOfEmp
-EmpType
------------------------------
+------------------------------------------------------------------------------------
+ExpMaster
+ code
+ Description
+ ExpIncCode
+ DateOfEntry
+ DateOfExp
+ PeriodCode
+------------------------------------------------------------------------------------------
+WorkersExpense
+ code
+ Description
+ ExpMasterCode
+ NumberOfEmp
+ EmpType
+------------------------------------------------------------------------------------------
 
 
 
----------------------------
---Product Expense
-code
-Description
-Qty
-Price
-Tax
-Total
+--------------------------------------------------------------------------------------------
+ProductExpense
+ code
+ Description
+ Qty
+ Price
+ Tax
+ Total
