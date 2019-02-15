@@ -18,16 +18,16 @@ MasterExpIncCodes
  parentcode
  TotalValue
  Period
------------------------------------------------------------------------------
+----------------------------------------------------------------------------------
 YieldPeriodMaster (cycle)
   Code
   Description
   PeriodName
   PeriodStartFrom
   PeriodEndFrom
-  isCurrent
-  expMaster[] : ExpMaster // expense related to this yield period
-
+  isCurrent 
+  workersExpense[] :  WorkersExpense  // expense related to workers for this yield period
+  productExpense[] :  ProductExpense  // expense related to buy products for this yeild period
 ------------------------------------------------------------------------------------
 ExpMaster
  code
@@ -36,6 +36,7 @@ ExpMaster
  DateOfEntry
  DateOfExp
  PeriodCode
+
 ------------------------------------------------------------------------------------------
 WorkersExpense
  code
@@ -45,9 +46,6 @@ WorkersExpense
  EmpType
 ------------------------------------------------------------------------------------------
 
-
-
---------------------------------------------------------------------------------------------
 ProductExpense
  code
  Description
