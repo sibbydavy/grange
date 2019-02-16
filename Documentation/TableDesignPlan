@@ -29,7 +29,7 @@ YieldPeriodMaster (cycle)
   workersExpense[] :  WorkersExpense  // expense related to workers for this yield period
   productExpense[] :  ProductExpense  // expense related to buy products for this yeild period
 ------------------------------------------------------------------------------------
-ExpMaster
+ExpenseMaster
  code
  Description
  ExpIncCode
@@ -41,9 +41,9 @@ ExpMaster
 WorkersExpense
  code
  Description
- ExpMasterCode
  NumberOfEmp
  EmpType
+ expenseMaster[] :  ExpenseMaster  // expense related to workers daily wages for this yeild period
 ------------------------------------------------------------------------------------------
 
 ProductExpense
@@ -53,3 +53,4 @@ ProductExpense
  Price
  Tax
  Total
+ expenseMaster[] :  ExpenseMaster  // expense related to buying product like tools, motor, pesticides, plant etc
