@@ -1,0 +1,27 @@
+Note: 
+CropDictionary
+  cropCode
+  cropName
+  yieldPeriodMaster[] : YieldPeriodMaster //list of cycle from start to end yielding.
+  
+  ---------------------------------------------------------------------------------------------------------
+  Note: It hold the collection of start to end of a crop cycle. 
+         That's is one cultivation to next cultivation cycle
+  YieldPeriodDictionary (cycle)
+    Code
+    Description
+    PeriodName
+    PeriodStartFrom
+    PeriodEndFrom 
+    cropCode //Reference code from 'CropDictionary'
+    
+   ---------------------------------------------------------------------------------------------------------------
+ MasterExpIncCodes
+   code
+   description
+   Type {exp, inc}
+   parentcode
+   TotalValue
+   Period
+    
+    
