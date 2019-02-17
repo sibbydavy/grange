@@ -1,3 +1,5 @@
+
+-------------------------------------------------------------------------------------------
 FarmMaster
   farmCode,
   farmName,
@@ -32,10 +34,11 @@ YieldPeriodMaster (cycle)
 ExpenseMaster
  code
  Description
- ExpIncCode
+ #ExpIncCode
  DateOfEntry
  DateOfExp
- PeriodCode
+ #PeriodCode
+ PaidBy //code from 'UserDetail'. who paid the to buy product or wages (ex: if arun paid from then 'arun' will come this field
 
 ------------------------------------------------------------------------------------------
 WorkersExpense
@@ -50,7 +53,26 @@ ProductExpense
  code
  Description
  Qty
+ UOM
  Price
  Tax
  Total
  expenseMaster[] :  ExpenseMaster  // expense related to buying product like tools, motor, pesticides, plant etc
+ 
+ ---------------------------------------------------------------------------------------------------------------
+ UserDetail
+  code
+  name
+  email
+  phone
+  username //username will be either phone number or email
+  userGroup : UserGroup
+  
+  -----------------------------------------------------------------------------------------
+  UserGroup
+   code
+   name
+   
+  
+  
+ 
