@@ -1,53 +1,78 @@
---FarmMaster
- farmCode,
- farmName
-------------------
---CropMaster
+
+-------------------------------------------------------------------------------------------
+FarmMaster
+  farmCode,
+  farmName,
+  cropMaster[]     : CropMaster //Hold the list of crops related to this farm
+  workersExpense[] : WorkersExpense //Hold the list of worker's expense related to this farm
+  productExpense[] : ProductExpense  //Hold the list of expenses to buy product related to this farm
+  
+---------------------------------------------------------------------
+CropMaster
   cropCode
   cropName
----------------
-
-
---MasterExpIncCodes
-code
-description
-Type {exp, inc}
-parentcode
-TotalValue
-Period
---------------
-
---PeriodMaster (cycle)
+  yieldPeriodMaster[] : YieldPeriodMaster //list of cycle from start to end yielding.
+----------------------------------------------------------------------
+MasterExpIncCodes
+ code
+ description
+ Type {exp, inc}
+ parentcode
+ TotalValue
+ Period
+----------------------------------------------------------------------------------
+YieldPeriodMaster (cycle)
   Code
   Description
   PeriodName
   PeriodStartFrom
   PeriodEndFrom
+  isCurrent 
+  workersExpense[] :  WorkersExpense  // expense related to workers for this yield period
+  productExpense[] :  ProductExpense  // expense related to buy products for this yeild period
+------------------------------------------------------------------------------------
+ExpenseMaster
+ code
+ Description
+ #ExpIncCode
+ DateOfEntry
+ DateOfExp
+ #PeriodCode
+ PaidBy //code from 'UserDetail'. who paid the to buy product or wages (ex: if arun paid from then 'arun' will come this field
 
---------------------------
---ExpMaster
-code
-Description
-ExpIncCode
-DateOfEntry
-DateOfExp
-PeriodCode
---------------------------
---Workers Expense
-code
-Description
-ExpMasterCode
-NumberOfEmp
-EmpType
------------------------------
+------------------------------------------------------------------------------------------
+WorkersExpense
+ code
+ Description
+ NumberOfEmp
+ EmpType
+ expenseMaster[] :  ExpenseMaster  // expense related to workers daily wages for this yeild period
+------------------------------------------------------------------------------------------
 
-
-
----------------------------
---Product Expense
-code
-Description
-Qty
-Price
-Tax
-Total
+ProductExpense
+ code
+ Description
+ Qty
+ UOM
+ Price
+ Tax
+ Total
+ expenseMaster[] :  ExpenseMaster  // expense related to buying product like tools, motor, pesticides, plant etc
+ 
+ ---------------------------------------------------------------------------------------------------------------
+ UserDetail
+  code
+  name
+  email
+  phone
+  username //username will be either phone number or email
+  userGroup : UserGroup
+  
+  -----------------------------------------------------------------------------------------
+  UserGroup
+   code
+   name
+   
+  
+  
+ 
