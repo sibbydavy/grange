@@ -28,13 +28,52 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="FlaskWebProject1\ApiCollections\Dictionary\YieldPeriodDictionary.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="FlaskWebProject1\ApiCollections\FarmAPI.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="FlaskWebProject1\CropMaster.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="FlaskWebProject1\DTOs\CropMaster.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="FlaskWebProject1\DTOs\ExpenseMaster.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="FlaskWebProject1\DTOs\FarmMaster.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="FlaskWebProject1\DTOs\PersonalAccount.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="FlaskWebProject1\DTOs\ProductExpense.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="FlaskWebProject1\DTOs\SampleSerializeObjejct.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="FlaskWebProject1\DTOs\UserDetail.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="FlaskWebProject1\DTOs\UserGroup.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="FlaskWebProject1\DTOs\WorkersExpense.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="FlaskWebProject1\DTOs\YieldPeriodMaster.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="FlaskWebProject1\FarmAPIList.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="FlaskWebProject1\FarmMaster.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="FlaskWebProject1\SampleDTO.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="runserver.py" />
@@ -44,6 +83,8 @@
   <ItemGroup>
     <Folder Include="FlaskWebProject1\" />
     <Folder Include="FlaskWebProject1\ApiCollections\" />
+    <Folder Include="FlaskWebProject1\ApiCollections\Dictionary\" />
+    <Folder Include="FlaskWebProject1\DTOs\" />
     <Folder Include="FlaskWebProject1\static\" />
     <Folder Include="FlaskWebProject1\static\content\" />
     <Folder Include="FlaskWebProject1\static\fonts\" />
