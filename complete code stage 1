@@ -1,0 +1,182 @@
+import json
+ 
+ 
+class JsonConvert(object):
+    mappings = {}
+     
+    @classmethod
+    def class_mapper(clsself, d):
+        for keys, cls in clsself.mappings.items():
+            if keys.issuperset(d.keys()):   # are all required arguments present?
+                return cls(**d)
+        else:
+            # Raise exception instead of silently returning None
+            raise ValueError('Unable to find a matching class for object: {!s}'.format(d))
+     
+    @classmethod
+    def complex_handler(clsself, Obj):
+        if hasattr(Obj, '__dict__'):
+            return Obj.__dict__
+        else:
+            raise TypeError('Object of type %s with value of %s is not JSON serializable' % (type(Obj), repr(Obj)))
+ 
+    @classmethod
+    def register(clsself, cls):
+        clsself.mappings[frozenset(tuple([attr for attr,val in cls().__dict__.items()]))] = cls
+        return cls
+ 
+    @classmethod
+    def ToJSON(clsself, obj):
+        return json.dumps(obj.__dict__, default=clsself.complex_handler, indent=4)
+ 
+    @classmethod
+    def FromJSON(clsself, json_str):
+        return json.loads(json_str, object_hook=clsself.class_mapper)
+     
+    @classmethod
+    def ToFile(clsself, obj, path):
+        with open(path, 'w') as jfile:
+            jfile.writelines([clsself.ToJSON(obj)])
+        return path
+ 
+    @classmethod
+    def FromFile(clsself, filepath):
+        result = None
+        with open(filepath, 'r') as jfile:
+            result = clsself.FromJSON(jfile.read())
+        return result
+
+@JsonConvert.register        
+class UserGroupModel(object):
+  def __init__(self, code:str=None, name:str=None):
+    self.code = code
+    self.name = name
+
+@JsonConvert.register       
+class UserDetailModel(object):
+  def __init__(self, code:str=None, name:str=None, email:str=None,phone:str=None, userName:str=None, userGroupModel:[UserGroupModel]=None):
+    self.code = code
+    self.name = name
+    self.email =email
+    self.phone = phone
+    self.userName = userName
+    self.userGroupModel = [] if userGroupModel is None else userGroupModel  
+
+        
+@JsonConvert.register
+class ExpenseDetailModel(object):
+  def __init__(self, code:str=None, description:str=None, dateOfEntry:str=None,dateOfExp:str=None,amount:int=0, userDetailModel:UserDetailModel=None):
+    self.code = code
+    self.description = description
+    self.dateOfEntry = dateOfEntry
+    self.dateOfExp = dateOfExp
+    self.amount = amount   
+    self.userDetailModel = userDetailModel
+    #self._periodCode = ""
+    #self._accountType = ""
+    #self._refCode = "
+    
+@JsonConvert.register         
+class WorkersExpenseModel(object):
+  def __init__(self, code:str=None, description:str=None, numberOfEmp:int=0,empType:str=None, expenseDetailModel:[ExpenseDetailModel]=None):
+    self.code = code
+    self.description = description
+    self.numberOfEmp = numberOfEmp
+    self.empType = empType
+    self.expenseDetailModel =  [] if expenseDetailModel is None else expenseDetailModel     
+
+@JsonConvert.register   
+class ProductExpenseModel(object):
+  def __init__(self, code:str=None, description:str=None, qty:float=0.000,uom:str=None,price:float=0.00,tax:float=0.00,total:float=0.00, expenseDetailModel:[ExpenseDetailModel]=None):
+    self.code = code
+    self.description =description
+    self.qty =qty
+    self.uom = uom
+    self.price = price
+    self.tax = tax
+    self.total = total
+    self.expenseDetailModel = [] if expenseDetailModel is None else expenseDetailModel         
+    
+@JsonConvert.register        
+class YieldPeriodDetailModel(object):
+  def __init__(self, code:str=None,description:str=None, periodName:str=None, periodStart:str=None,
+                                periodEnd:str=None, isCurrent:bool=False, totalAmount:float=0
+                                , productExpenseModel:[ProductExpenseModel]=None, workersExpenseModel:[WorkersExpenseModel]=None):
+    self.code = code
+    self.description = description
+    self.periodName = periodName
+    self.periodStart = periodStart
+    self.periodEnd  = periodEnd   
+    self.isCurrent = isCurrent
+    self.totalAmount = totalAmount
+    self.productExpenseModel = [] if productExpenseModel is None else productExpenseModel    
+    self.workersExpenseModel = [] if workersExpenseModel is None else workersExpenseModel       
+    #SELF._WORKERSEXPENSE = []
+    #SELF._productExpense = []
+    return
+
+@JsonConvert.register
+class CropDetailModel(object):
+    def __init__(self, cropCode:str=None, cropName:str=None, yieldPeriodDetailModel:[YieldPeriodDetailModel]=None):
+        self.cropCode = cropCode
+        self.cropName = cropName
+        self.yieldPeriodDetailModel = [] if yieldPeriodDetailModel is None else yieldPeriodDetailModel       
+        return
+ 
+@JsonConvert.register
+class FarmDetailModel(object):
+    def __init__(self, code:str="", farmName:str="", cropDetailModel:[CropDetailModel]=None):
+        self.code = code
+        self.farmName = farmName        
+        self.cropDetailModel = [] if cropDetailModel is None else cropDetailModel
+        return
+
+
+
+userGroupModel = []
+userGroupModel.append(UserGroupModel("Admin","Administrator"))
+userGroupModel.append(UserGroupModel("DataEntry","DataEntry"))
+
+userDetailModel = UserDetailModel("u1","Rogy", "rogy@gmail.com", "8778988564", "rogy@gmail.com", userGroupModel)
+
+
+expenseDetailModelListForProduct1=[]
+expenseDetailModelListForProduct1.append(ExpenseDetailModel("exp1","hammer", "12/03/2018", "10/03/2018", 100.00,userDetailModel))
+expenseDetailModelListForProduct1.append(ExpenseDetailModel("exp2","rope", "12/03/2018", "11/03/2018", 100.00,userDetailModel))
+expenseDetailModelListForProduct2=[]
+expenseDetailModelListForProduct2.append(ExpenseDetailModel("exp3","pesticides A", "12/03/2018", "10/03/2018", 100.00,userDetailModel))
+
+productExpenseModelList = []
+productExpenseModel1 = ProductExpenseModel("#Tls","Tools",10,"kg",100.00,0,100,expenseDetailModelListForProduct1 )
+productExpenseModel2 = ProductExpenseModel("#Pst","pesticides",50,"kg",100.00,0,100,expenseDetailModelListForProduct2 )
+productExpenseModelList.append(productExpenseModel1)
+productExpenseModelList.append(productExpenseModel2)
+
+expenseDetailModelListForWorker=[]
+expenseDetailModelListForWorker.append(ExpenseDetailModel("exp4","watering", "12/03/2018", "10/03/2018", 100.00,userDetailModel))
+expenseDetailModelListForWorker.append(ExpenseDetailModel("exp5","yielding", "12/03/2018", "11/03/2018", 100.00,userDetailModel))
+workersExpenseModelList = []
+workersExpenseModel = WorkersExpenseModel("#W1","kalakan",15,"bengali", expenseDetailModelListForWorker)
+workersExpenseModelList.append(workersExpenseModel)
+
+yieldPeriodDetailModelList = []
+yieldPeriodDetailModelList.append(YieldPeriodDetailModel("Y#1","Peridon 1","Nov2016-Mar2017","01/Nov/2016","01/Nov/2017",0,100,productExpenseModelList,workersExpenseModelList))
+
+cropDetailModels = []
+cropDetailModels.append(CropDetailModel("cr#1", "Elanchi",yieldPeriodDetailModelList))
+
+
+farmDetailModel = FarmDetailModel("F#","Iduki")
+#CropDetailModels.append(CropDetailModel("cr#2", "Vaza",YieldPeriodMaster("Y#1","Peridon 1","Nov2016-Mar2017","01/Nov/2016","01/Nov/2017",0,200,productExpenseModelList,workersExpenseModelList)))
+farmDetailModel.cropDetailModel.append(cropDetailModels)
+#farmDetailModel.CropDetailModel.append(CropDetailModel("cr#1", "Elanchi"))
+#farmDetailModel.CropDetailModel.append(CropDetailModel("cr#2", "Banana"))
+ 
+asJson = JsonConvert.ToJSON(farmDetailModel)
+fromJson = JsonConvert.FromJSON(asJson)
+asJsonFromJson = JsonConvert.ToJSON(fromJson)
+ 
+assert(asJsonFromJson == asJson)
+ 
+print(asJsonFromJson)    
+
